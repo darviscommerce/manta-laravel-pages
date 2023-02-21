@@ -1,0 +1,38 @@
+{
+    "name": "darvis/manta-laravel-pages",
+    "description": "Laravel Livewire pages module with TinyMce 6 (multilingual)",
+    "homepage": "http://darvis.nl",
+    "keywords": ["darvis", "laravel", "livewire", "pages"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Arvid de Jong",
+            "email": "arvid@darvis.nl",
+            "homepage": "https://darvis.nl"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Manta\\LaravelPages\\Providers\\MantaPagesProvider"
+            ]
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Manta\\LaravelPages\\": "/src"
+        }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/darviscommerce/laravel-pages"
+        }
+    ],
+    "require": {
+        "darvis/lemmings": ">=1.0.0",
+        "darvis/laravel-users": "*",
+        "php-flasher/flasher-laravel": "*",
+        "php-flasher/flasher-toastr-laravel": "*"
+    }
+}
