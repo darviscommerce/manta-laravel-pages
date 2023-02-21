@@ -51,7 +51,7 @@ class PagesUpdate extends Component
 
     public function render()
     {
-        return view('manta-laravel-pages::livewire.pages.pages-update')->layout('manta-laravel-users::layouts.manta-bootstrap');
+        return view('manta-laravel-pages::livewire.pages.pages-update')->layout('manta-laravel-cms::layouts.manta-bootstrap');
     }
 
     public function store($input)

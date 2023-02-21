@@ -3,7 +3,7 @@
 namespace Manta\LaravelPages\Http\Livewire\Pages;
 
 use Manta\LaravelPages\Models\MantaPage;
-use Manta\LaravelUsers\Traits\WithSorting;
+use Manta\LaravelCms\Traits\WithSorting;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -29,7 +29,7 @@ class PagesList extends Component
 
     public function render()
     {
-        $obj = MantaPage::where('locale', config('manta-users.locale'))->orderBy($this->sortBy, $this->sortDirection);
+        $obj = MantaPage::where('locale', config('manta-cms.locale'))->orderBy($this->sortBy, $this->sortDirection);
         if($this->show == 'trashed'){
             $obj->onlyTrashed();
         }
@@ -42,7 +42,7 @@ class PagesList extends Component
         // ->where('name', 'like', '%'.$this->search.'%')->orWhere('email', 'like', '%'.$this->search.'%');
         }
         $items = $obj->paginate(20);
-        return view('manta-laravel-pages::livewire.pages.pages-list', ['items' => $items])->layout('manta-laravel-users::layouts.manta-bootstrap');
+        return view('manta-laravel-pages::livewire.pages.pages-list', ['items' => $items])->layout('manta-laravel-cms::layouts.manta-bootstrap');
     }
 
     public function loadTrash()

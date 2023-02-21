@@ -6,13 +6,14 @@
             <li class="breadcrumb-item active" aria-current="page">Toevoegen {{ $pid }}</li>
         </ol>
     </nav>
-    @if (count(config('manta-users.locales')) > 1 && $item)
+
+    @if (count(config('manta-cms.locales')) > 1 && $item)
     <ul class="nav nav-tabs mb-4">
         <li class="nav-item">
-          <a class="nav-link {{ $pid == null ? 'active' : null }}" aria-current="page" href="{{ route('manta.pages.update', ['input' => $pid]) }}">{{ config('manta-users.locales')[config('manta-users.locale')]['language'] }} <span class="{{ config('manta-users.locales')[config('manta-users.locale')]['css'] }}"></span></a>
+          <a class="nav-link {{ $pid == null ? 'active' : null }}" aria-current="page" href="{{ route('manta.pages.update', ['input' => $pid]) }}">{{ config('manta-cms.locales')[config('manta-cms.locale')]['language'] }} <span class="{{ config('manta-cms.locales')[config('manta-cms.locale')]['css'] }}"></span></a>
         </li>
-        @foreach (config('manta-users.locales') as $key => $value)
-            @if($key != config('manta-users.locale'))
+        @foreach (config('manta-cms.locales') as $key => $value)
+            @if($key != config('manta-cms.locale'))
         <li class="nav-item">
           <a class="nav-link {{ $pid && $key == $locale ? 'active' : null }}" href="{{ route('manta.pages.update', ['locale' => $key, 'input' => $item->id]) }}">{{ $value['language'] }} <span class="{{ $value['css'] }}"></span></a>
         </li>
@@ -32,7 +33,7 @@
             </div>
             <label for="initials" class="col-sm-1 col-form-label"></label>
             <div class="col-sm-5">
-                @if ($locale != config('manta-users.locale'))
+                @if ($item && $locale != config('manta-cms.locale'))
                 <em>{!! $item->translation()['get']->title !!}</em>
                 @endif
             </div>
@@ -98,7 +99,7 @@
                 @enderror
             </div>
             <div class="col-sm-5">
-                @if ($locale != config('manta-users.locale'))
+                @if ($item && $locale != config('manta-cms.locale'))
                 <em>{!! $item->translation()['get']->content !!}</em>
                 @endif
             </div>

@@ -6,15 +6,16 @@
             <li class="breadcrumb-item active" aria-current="page"><em>{!! $item->translation()['get']->title !!}</em> aanpassen</li>
         </ol>
     </nav>
-    @if (count(config('manta-users.locales')) > 1)
+
+    @if (count(config('manta-cms.locales')) > 1)
         <ul class="nav nav-tabs mb-4">
             <li class="nav-item">
-                <a class="nav-link {{ config('manta-users.locale') == $locale ? 'active' : null }}" aria-current="page"
-                    href="#">{{ config('manta-users.locales')[config('manta-users.locale')]['language'] }} <span
-                        class="{{ config('manta-users.locales')[config('manta-users.locale')]['css'] }}"></span></a>
+                <a class="nav-link {{ config('manta-cms.locale') == $locale ? 'active' : null }}" aria-current="page"
+                    href="{{ route('manta.pages.update', ['input' => $item->translation()['org']->id]) }}">{{ config('manta-cms.locales')[config('manta-cms.locale')]['language'] }} <span
+                        class="{{ config('manta-cms.locales')[config('manta-cms.locale')]['css'] }}"></span></a>
             </li>
-            @foreach (config('manta-users.locales') as $key => $value)
-                @if ($key != config('manta-users.locale'))
+            @foreach (config('manta-cms.locales') as $key => $value)
+                @if ($key != config('manta-cms.locale'))
                     <li class="nav-item">
                         <a class="nav-link {{ $key == $locale ? 'active' : null }}"
                             href="{{ route('manta.pages.update', ['locale' => $key, 'input' => $item->id]) }}">{{ $value['language'] }}
@@ -36,7 +37,7 @@
             </div>
             <label for="initials" class="col-sm-1 col-form-label"></label>
             <div class="col-sm-5">
-                @if ($item->locale != config('manta-users.locale'))
+                @if ($item->locale != config('manta-cms.locale'))
                 <em>{!! $item->translation()['get']->title !!}</em>
                 @endif
             </div>
@@ -102,7 +103,7 @@
                 @enderror
             </div>
             <div class="col-sm-5">
-                @if ($item->locale != config('manta-users.locale'))
+                @if ($item->locale != config('manta-cms.locale'))
                 <em>{!! $item->translation()['get']->content !!}</em>
                 @endif
             </div>

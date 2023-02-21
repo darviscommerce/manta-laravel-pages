@@ -27,7 +27,7 @@ class PagesCreate extends Component
     public function mount(Request $request)
     {
         $this->host = request()->getHost();
-        $this->locale = config('manta-users.locale');
+        $this->locale = config('manta-cms.locale');
         if($request->input('pid') && $request->input('locale')){
             $this->item = MantaPage::find($request->input('pid'));
             if($this->item){
@@ -39,7 +39,7 @@ class PagesCreate extends Component
 
     public function render()
     {
-        return view('manta-laravel-pages::livewire.pages.pages-create')->layout('manta-laravel-users::layouts.manta-bootstrap');
+        return view('manta-laravel-pages::livewire.pages.pages-create')->layout('manta-laravel-cms::layouts.manta-bootstrap');
     }
 
     public function updatedTitle()
