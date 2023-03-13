@@ -28,6 +28,7 @@
         <thead>
             <tr>
                 <th>Titel</th>
+                <th>Slug</th>
                 <th>SEO Titel</th>
                 <th width="250">Tools</th>
             </tr>
@@ -36,18 +37,41 @@
             @foreach ($items as $item)
                 <tr>
                     <td>{{ $item->title }}</td>
-                    <td>{{ $item->seo_title }}</td>
+                    <td>
+                        @if($item->fullpage)
+                        <a href="{{ url($item->slug) }}" target="_blank">{{ $item->slug }}</a>
+                        @endif
+                     </td>
+                    <td>
+                        {{ $item->fullpage ? $item->seo_title : null }}
+                    </td>
                     <td>
                         @if($item->trashed())
                         <button wire:click="restore('{{ $item->id }}')" class="btn btn-sm btn-warning"><i class="fa-solid fa-rotate-left"></i></button>
                         @elseif ($deleteId == null || $deleteId != $item->id)
                             <a href="{{ route('manta.pages.update', ['input' => $item->id]) }}" class="btn btn-sm btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
-                            <button wire:click="delete('{{ $item->id }}')" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash-can"></i></button>
+
+                            @foreach (config('manta-cms.locales') as $key => $value)
+                            @if ($key != config('manta-cms.locale'))
+                            @php
+                                $lang = Manta\LaravelPages\Models\MantaPage::where(['locale' => $key, 'pid' => $item->id])->first();
+                            @endphp
+                                    <a class="btn btn-sm {{ $lang ? 'btn-warning' : 'btn-success' }}"
+                                        href="{{ route('manta.pages.update', ['locale' => $key, 'input' => $item->id]) }}"><span class="{{ $value['css'] }}"></span></a>
+                            @endif
+                        @endforeach
+
+                            @if ($item->fixed)
+                            <a href="javascript:;" class="btn btn-sm btn-danger pe-none" tabindex="-1" aria-disabled="true"><i class="fa-solid fa-lock"></i></a>
+                                @else
+                                <button wire:click="delete('{{ $item->id }}')" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash-can"></i></button>
+                            @endif
                         @elseif($deleteId == $item->id)
                             Verwijder?
                             <button class="btn btn-sm btn-success" wire:click="deleteConfirm"><i class="fa-solid fa-check"></i></button>
                             <button class="btn btn-sm btn-danger" wire:click="deleteCancel"><i class="fa-solid fa-xmark"></i></button>
                         @endif
+
                     </td>
                 </tr>
             @endforeach

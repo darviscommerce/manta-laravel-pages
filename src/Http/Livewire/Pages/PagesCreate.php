@@ -1,6 +1,6 @@
 <?php
 
-namespace Manta\LaravelPages\Http\Livewire\Pages;
+namespace App\Http\Livewire\Pages;
 
 use Manta\LaravelPages\Models\MantaPage;
 use Illuminate\Http\Request;
@@ -23,6 +23,8 @@ class PagesCreate extends Component
     public ?string $seo_description = null;
     public ?string $excerpt = null;
     public ?string $content = null;
+    public int $fixed = 1;
+    public int $fullpage = 1;
 
     public function mount(Request $request)
     {
@@ -33,13 +35,16 @@ class PagesCreate extends Component
             if($this->item){
                 $this->pid = $request->input('pid');
                 $this->locale = $request->input('locale');
+                $this->title = $this->item->title;
+                $this->fixed = $this->item->fixed;
+                $this->fullpage = $this->item->fullpage;
             }
         }
     }
 
     public function render()
     {
-        return view('manta-laravel-pages::livewire.pages.pages-create')->layout('manta-laravel-cms::layouts.manta-bootstrap');
+        return view('livewire.pages.pages-create')->layout('layouts.manta-bootstrap');
     }
 
     public function updatedTitle()
@@ -75,7 +80,9 @@ class PagesCreate extends Component
             'seo_title' => $this->seo_title,
             'seo_description' => $this->seo_description,
             'excerpt' => $this->excerpt,
-            'content' => $this->content
+            'content' => $this->content,
+            'fixed' => (int)$this->fixed,
+            'fullpage' => (int)$this->fullpage
         ];
         MantaPage::create($items);
 

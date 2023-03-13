@@ -9,6 +9,10 @@ use Manta\LaravelPages\Http\Livewire\Pages\PagesUpdate;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
 use Livewire\Livewire;
+use Manta\LaravelPages\Http\Livewire\Pages\PagesUploads;
+use Illuminate\Support\Facades\Blade;
+use Manta\LaravelPages\View\Components\Website\PageText;
+use Manta\LaravelPages\View\Components\Website\PageLink;
 
 class MantaPagesProvider extends ServiceProvider
 {
@@ -29,6 +33,10 @@ class MantaPagesProvider extends ServiceProvider
         Livewire::component('pages-create', PagesCreate::class);
         Livewire::component('pages-update', PagesUpdate::class);
         Livewire::component('pages-list', PagesList::class);
+        Livewire::component('pages-uploads', PagesUploads::class);
+
+        Blade::component('page-link', PageLink::class);
+        Blade::component('page-text', PageText::class);
 
         // * Views
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'manta-laravel-pages');

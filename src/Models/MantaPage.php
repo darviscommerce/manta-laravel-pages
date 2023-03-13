@@ -32,7 +32,9 @@ class MantaPage extends Model
         'seo_title',
         'seo_description',
         'excerpt',
-        'content'
+        'content',
+        'fixed',
+        'fullpage',
     ];
 
     /**

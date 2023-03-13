@@ -1,6 +1,6 @@
 <?php
 
-namespace Manta\LaravelPages\Http\Livewire\Pages;
+namespace App\Http\Livewire\Pages;
 
 use Manta\LaravelPages\Models\MantaPage;
 use Illuminate\Http\Request;
@@ -22,6 +22,8 @@ class PagesUpdate extends Component
     public ?string $seo_description = null;
     public ?string $excerpt = null;
     public ?string $content = null;
+    public ?string $fixed = null;
+    public ?string $fullpage = null;
 
     public function mount(Request $request, $input)
     {
@@ -47,11 +49,14 @@ class PagesUpdate extends Component
         $this->seo_description = $item->seo_description;
         $this->excerpt = $item->excerpt;
         $this->content = $item->content;
+        $this->fixed = $item->fixed;
+        $this->fullpage = $item->fullpage;
+
     }
 
     public function render()
     {
-        return view('manta-laravel-pages::livewire.pages.pages-update')->layout('manta-laravel-cms::layouts.manta-bootstrap');
+        return view('livewire.pages.pages-update')->layout('layouts.manta-bootstrap');
     }
 
     public function store($input)
@@ -67,6 +72,8 @@ class PagesUpdate extends Component
             ]
         );
 
+
+
         $items = [
             'added_by' => auth()->user()->name,
             'locale' => $this->locale,
@@ -75,7 +82,9 @@ class PagesUpdate extends Component
             'seo_title' => $this->seo_title,
             'seo_description' => $this->seo_description,
             'excerpt' => $this->excerpt,
-            'content' => $this->content
+            'content' => $this->content,
+            'fixed' => $this->fixed,
+            'fullpage' => $this->fullpage
         ];
         MantaPage::where('id', $this->item->id)->update($items);
 

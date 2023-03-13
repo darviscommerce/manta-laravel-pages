@@ -19,6 +19,10 @@
         </li>
             @endif
         @endforeach
+        {{-- <li class="nav-item">
+            <a class="nav-link {{ isset($plugin) && $plugin == 'uploads' ? 'active' : null }}"
+                href="{{ route('manta.pages.uploads', ['input' => $item->id]) }}">Uploads</a>
+        </li> --}}
       </ul>
     @endif
     <form wire:submit.prevent="store(Object.fromEntries(new FormData($event.target)))">
@@ -38,12 +42,13 @@
                 @endif
             </div>
         </div>
+        @if($fullpage)
         <div class="mb-3 row">
-            <label for="title" class="col-sm-2 col-form-label">Slug</label>
+            <label for="slug" class="col-sm-2 col-form-label">Slug @if($slug)<a href="{{ url($slug) }}" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>@endif</label>
             <div class="col-sm-4">
-                <input type="text" class="form-control form-control-sm @error('title')is-invalid @enderror"
-                    id="title" wire:model.defer="title">
-                @error('title')
+                <input type="text" class="form-control form-control-sm @error('slug')is-invalid @enderror"
+                    id="slug" wire:model.defer="slug">
+                @error('slug')
                     <span class="error">{{ $message }}</span>
                 @enderror
             </div>
@@ -52,11 +57,11 @@
             </div>
         </div>
         <div class="mb-3 row">
-            <label for="title" class="col-sm-2 col-form-label">SEO Titel</label>
+            <label for="seo_title" class="col-sm-2 col-form-label">SEO Titel</label>
             <div class="col-sm-4">
-                <input type="text" class="form-control form-control-sm @error('title')is-invalid @enderror"
-                    id="title" wire:model="title">
-                @error('title')
+                <input type="text" class="form-control form-control-sm @error('seo_title')is-invalid @enderror"
+                    id="seo_title" wire:model="seo_title">
+                @error('seo_title')
                     <span class="error">{{ $message }}</span>
                 @enderror
             </div>
@@ -67,8 +72,8 @@
         <div class="mb-3 row">
             <label for="seo_description" class="col-sm-2 col-form-label">SEO Omschrijving</label>
             <div class="col-sm-4">
-                <textarea class="form-control form-control-sm @error('seo_description')is-invalid @enderror"
-                    id="seo_description" wire:model="seo_description"></textarea>
+                <textarea class="form-control form-control-sm @error('seo_description')is-invalid @enderror" id="seo_description"
+                    wire:model="seo_description"></textarea>
                 @error('seo_description')
                     <span class="error">{{ $message }}</span>
                 @enderror
@@ -77,11 +82,12 @@
             <div class="col-sm-4">
             </div>
         </div>
+        @endif
         <div class="mb-3 row">
-            <label for="excerpt" class="col-sm-2 col-form-label">Uittreksel/ inleiding</label>
+            <label for="excerpt" class="col-sm-2 col-form-label">Tags</label>
             <div class="col-sm-5">
-                <textarea class="form-control form-control-sm @error('excerpt')is-invalid @enderror"
-                    id="excerpt" rows="7" wire:model="excerpt"></textarea>
+                <textarea class="form-control form-control-sm @error('excerpt')is-invalid @enderror" id="excerpt" rows="7"
+                    wire:model="excerpt" placeholder="Bijvoorbeeld: test,abc,doemaar"></textarea>
                 @error('excerpt')
                     <span class="error">{{ $message }}</span>
                 @enderror

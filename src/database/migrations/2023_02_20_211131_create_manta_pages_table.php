@@ -26,6 +26,8 @@ return new class extends Migration
             $table->text('seo_description')->nullable();
             $table->longText('excerpt')->nullable();
             $table->longText('content')->nullable();
+            $table->boolean('fixed')->nullable();   // Used when text is fixed in website
+            $table->boolean('fullpage')->nullable();   // Can be used as standalone page
         });
     }
 
