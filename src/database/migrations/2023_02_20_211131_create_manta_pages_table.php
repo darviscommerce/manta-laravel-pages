@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('company_id')->nullable();
             $table->string('host')->nullable();
             $table->string('locale')->nullable();
+            $table->integer('pid')->nullable();
             $table->string('title')->nullable();
             $table->string('slug')->nullable();
             $table->string('seo_title')->nullable();
