@@ -1,10 +1,10 @@
 <?php
 
-use Manta\LaravelPages\Http\Livewire\Pages\PagesCreate;
-use Manta\LaravelPages\Http\Livewire\Pages\PagesList;
-use Manta\LaravelPages\Http\Livewire\Pages\PagesUpdate;
+use App\Http\Livewire\Pages\PagesCreate;
+use App\Http\Livewire\Pages\PagesList;
+use App\Http\Livewire\Pages\PagesUpdate;
 use Illuminate\Support\Facades\Route;
-use Manta\LaravelPages\Http\Livewire\Pages\PagesUploads;
+use App\Http\Livewire\Pages\PagesUploads;
 
 Route::get('/pagina', PagesList::class)->name('manta.pages.list');
 Route::get('/pagina/toevoegen', PagesCreate::class)->name('manta.pages.create');
