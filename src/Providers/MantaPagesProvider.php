@@ -3,16 +3,8 @@
 namespace Manta\LaravelPages\Providers;
 
 use Manta\LaravelPages\Console\InstallMantaLaravelPages;
-use Manta\LaravelPages\Http\Livewire\Pages\PagesCreate;
-use Manta\LaravelPages\Http\Livewire\Pages\PagesList;
-use Manta\LaravelPages\Http\Livewire\Pages\PagesUpdate;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
-use Livewire\Livewire;
-use Manta\LaravelPages\Http\Livewire\Pages\PagesUploads;
-use Illuminate\Support\Facades\Blade;
-use Manta\LaravelPages\View\Components\Website\PageText;
-use Manta\LaravelPages\View\Components\Website\PageLink;
 
 class MantaPagesProvider extends ServiceProvider
 {
@@ -30,13 +22,13 @@ class MantaPagesProvider extends ServiceProvider
         $this->registerRoutes();
 
         // * Laravel components
-        Livewire::component('pages-create', PagesCreate::class);
-        Livewire::component('pages-update', PagesUpdate::class);
-        Livewire::component('pages-list', PagesList::class);
-        Livewire::component('pages-uploads', PagesUploads::class);
+        // Livewire::component('pages-create', PagesCreate::class);
+        // Livewire::component('pages-update', PagesUpdate::class);
+        // Livewire::component('pages-list', PagesList::class);
+        // Livewire::component('pages-uploads', PagesUploads::class);
 
-        Blade::component('page-link', PageLink::class);
-        Blade::component('page-text', PageText::class);
+        // Blade::component('page-link', PageLink::class);
+        // Blade::component('page-text', PageText::class);
 
         // * Views
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'manta-laravel-pages');
