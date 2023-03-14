@@ -64,6 +64,8 @@ class MantaPage extends Model
     public function translation(?string $getLocale = null): array
     {
         $return = ['get','org'];
+        if($getLocale == null) $getLocale = app()->getLocale();
+
         if($this->pid)
         {
             $return['org'] = MantaPage::find($this->pid);
