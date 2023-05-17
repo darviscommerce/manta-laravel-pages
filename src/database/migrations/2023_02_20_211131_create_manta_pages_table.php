@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->softDeletes();
-            $table->string('added_by')->nullable();
-            $table->string('changed_by')->nullable();
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
+            $table->string('deleted_by')->nullable();
             $table->integer('company_id')->nullable();
             $table->string('host')->nullable();
             $table->string('locale')->nullable();
@@ -25,6 +26,7 @@ return new class extends Migration
             $table->string('slug')->nullable();
             $table->string('seo_title')->nullable();
             $table->text('seo_description')->nullable();
+            $table->text('tags')->nullable();
             $table->longText('excerpt')->nullable();
             $table->longText('content')->nullable();
             $table->boolean('fixed')->nullable();   // Used when text is fixed in website

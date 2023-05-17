@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Pages;
 
-use Manta\LaravelPages\Models\MantaPage;
+use App\Models\MantaPage;
 use App\Traits\WithSorting;
 use Livewire\Component;
 use Livewire\WithPagination;

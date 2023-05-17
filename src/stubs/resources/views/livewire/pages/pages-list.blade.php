@@ -54,7 +54,7 @@
                             @foreach (config('manta-cms.locales') as $key => $value)
                             @if ($key != config('manta-cms.locale'))
                             @php
-                                $lang = Manta\LaravelPages\Models\MantaPage::where(['locale' => $key, 'pid' => $item->id])->first();
+                                $lang = App\Models\MantaPage::where(['locale' => $key, 'pid' => $item->id])->first();
                             @endphp
                                     <a class="btn btn-sm {{ $lang ? 'btn-warning' : 'btn-success' }}"
                                         href="{{ route('manta.pages.update', ['locale' => $key, 'input' => $item->id]) }}"><span class="{{ $value['css'] }}"></span></a>

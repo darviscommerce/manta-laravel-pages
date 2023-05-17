@@ -19,7 +19,7 @@ class MantaPagesProvider extends ServiceProvider
     {
 
         // * Routes
-        $this->registerRoutes();
+        // $this->registerRoutes();
 
         // * Laravel components
         // Livewire::component('pages-create', PagesCreate::class);
@@ -31,7 +31,7 @@ class MantaPagesProvider extends ServiceProvider
         // Blade::component('page-text', PageText::class);
 
         // * Views
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'manta-laravel-pages');
+        // $this->loadViewsFrom(__DIR__ . '/../resources/views', 'manta-laravel-pages');
 
         // * Migrations
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');

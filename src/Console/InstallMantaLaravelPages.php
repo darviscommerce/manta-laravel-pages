@@ -4,16 +4,22 @@ namespace Manta\LaravelPages\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Str;
+
 
 class InstallMantaLaravelPages extends Command
 {
-    protected $signature = 'mantalaravelusers:install';
+    protected $signature = 'manta-pages:install';
 
     protected $description = 'Install Manta Laravel Pages';
 
     public function handle()
     {
-        $this->info('Installing Manta Laravel Bootstra...');
+        $this->info('Installing Manta Pages module...');
+
+        $this->info('Migrate...');
+        $this->call('migrate');
 
         $this->info('Publishing configuration...');
 
@@ -29,7 +35,17 @@ class InstallMantaLaravelPages extends Command
             }
         }
 
-        $this->info('Installed Manta Laravel Bootstra');
+        (new Filesystem)->copyDirectory(__DIR__.'/../stubs/app/Models', app_path('Models'));
+        (new Filesystem)->copyDirectory(__DIR__.'/../stubs/app/Http', app_path('Http'));
+        (new Filesystem)->copyDirectory(__DIR__.'/../stubs/app/View', app_path('View'));
+        (new Filesystem)->copyDirectory(__DIR__.'/../stubs/resources/views', resource_path('views'));
+        (new Filesystem)->copyDirectory(__DIR__.'/../stubs/resources/lang', resource_path('lang'));
+
+        if (! Str::contains(file_get_contents(base_path('routes/web.php')), "'manta.pages.list'")) {
+            (new Filesystem)->append(base_path('routes/web.php'), file_get_contents(__DIR__.'/../stubs/routes/web.php'));
+        }
+
+        $this->info('Installed Manta Pages module');
     }
 
     private function configExists($fileName)

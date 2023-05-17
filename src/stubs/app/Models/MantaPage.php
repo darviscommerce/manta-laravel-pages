@@ -1,6 +1,6 @@
 <?php
 
-namespace Manta\LaravelPages\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
