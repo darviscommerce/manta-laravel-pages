@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace Manta\LaravelPages\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
@@ -21,13 +21,15 @@ class MantaPage extends Model
      * @var string[]
      */
     protected $fillable = [
-        'added_by',
-        'changed_by',
+        'created_by',
+        'updated_by',
+        'deleted_by',
         'company_id',
         'host',
         'pid',
         'locale',
         'title',
+        'subtitle',
         'slug',
         'seo_title',
         'seo_description',
@@ -42,44 +44,38 @@ class MantaPage extends Model
      *
      * @var array
      */
-    protected $hidden = [
-    ];
+    protected $hidden = [];
 
     /**
      * The attributes that should be cast.
      *
      * @var array
      */
-    protected $casts = [
-    ];
+    protected $casts = [];
 
     /**
      * The accessors to append to the model's array form.
      *
      * @var array
      */
-    protected $appends = [
-    ];
+    protected $appends = [];
 
     public function translation(?string $getLocale = null): array
     {
-        $return = ['get','org'];
-        if($getLocale == null) $getLocale = app()->getLocale();
+        $return = ['get', 'org'];
+        if ($getLocale == null) $getLocale = app()->getLocale();
 
-        if($this->pid)
-        {
+        if ($this->pid) {
             $return['org'] = MantaPage::find($this->pid);
         } else {
             $return['org'] = $this;
         }
         $return['get'] = $return['org'];
-        if($getLocale != config('manta-users.locale'))
-        {
+        if ($getLocale != config('manta-users.locale')) {
             $item = MantaPage::where(['pid' => $return['org']->id, 'locale' => $getLocale])->first();
-            if($item){
+            if ($item) {
                 $return['get'] = $item;
             }
-
         }
         return $return;
     }

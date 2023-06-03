@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Pages;
 
-use App\Models\MantaPage;
+use Manta\LaravelPages\Models\MantaPage;
 use Illuminate\Http\Request;
 use Livewire\Component;
 use Illuminate\Support\Str;
@@ -11,15 +11,17 @@ class PagesUpdate extends Component
 {
     public MantaPage $item;
 
-    public ?string $added_by = null;
-    public ?string $changed_by = null;
+    public ?string $created_by = null;
+    public ?string $updated_by = null;
     public ?string $company_id = '1';
     public ?string $host = null;
     public ?string $locale = null;
     public ?string $title = null;
+    public ?string $subtitle = null;
     public ?string $slug = null;
     public ?string $seo_title = null;
     public ?string $seo_description = null;
+    public ?string $tags = null;
     public ?string $excerpt = null;
     public ?string $content = null;
     public ?string $fixed = null;
@@ -28,9 +30,9 @@ class PagesUpdate extends Component
     public function mount(Request $request, $input)
     {
         $item = MantaPage::find($input);
-        if($request->input('locale')){
+        if ($request->input('locale')) {
             $item = MantaPage::where('locale', $request->input('locale'))->where('pid', $input)->first();
-            if($item == null){
+            if ($item == null) {
                 return redirect()->to(route('manta.pages.create', ['locale' => $request->input('locale'), 'pid' => $input]));
             }
         }
@@ -38,20 +40,21 @@ class PagesUpdate extends Component
             return redirect()->to(route('manta.pages.list'));
         }
         $this->item = $item;
-        $this->added_by = $item->added_by;
-        $this->changed_by = $item->changed_by;
+        $this->created_by = $item->created_by;
+        $this->updated_by = $item->updated_by;
         $this->company_id = $item->company_id;
         $this->host = $item->host;
         $this->locale = $item->locale;
         $this->title = $item->title;
+        $this->subtitle = $item->subtitle;
         $this->slug = $item->slug;
         $this->seo_title = $item->seo_title;
         $this->seo_description = $item->seo_description;
+        $this->tags = $item->tags;
         $this->excerpt = $item->excerpt;
         $this->content = $item->content;
         $this->fixed = $item->fixed;
         $this->fullpage = $item->fullpage;
-
     }
 
     public function render()
@@ -72,15 +75,15 @@ class PagesUpdate extends Component
             ]
         );
 
-
-
         $items = [
-            'added_by' => auth()->user()->name,
+            'updated_by' => auth()->user()->name,
             'locale' => $this->locale,
             'title' => $this->title,
+            'subtitle' => $this->subtitle,
             'slug' => Str::of($this->slug)->slug('-'),
             'seo_title' => $this->seo_title,
             'seo_description' => $this->seo_description,
+            'tags' => $this->tags,
             'excerpt' => $this->excerpt,
             'content' => $this->content,
             'fixed' => $this->fixed,

@@ -1,6 +1,6 @@
 <?php
 
-namespace Manta\LaravelPages\View\Components\Website;
+namespace App\View\Components\Website;
 
 use Closure;
 use Illuminate\Contracts\View\View;
@@ -14,7 +14,8 @@ class PageText extends Component
      */
     public function __construct(
         public string $itemid,
-    ) {}
+    ) {
+    }
 
     /**
      * Get the view / contents that represent the component.
@@ -23,6 +24,6 @@ class PageText extends Component
     {
         $item = MantaPage::find($this->itemid);
         $content = $item->content;
-        return view('manta-laravel-pages::components.website.text', compact('content'));
+        return view('components.website.page-text', compact('content'));
     }
 }

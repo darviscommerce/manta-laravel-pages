@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Pages;
 
-use App\Models\MantaPage;
+use Manta\LaravelPages\Models\MantaPage;
 use Illuminate\Http\Request;
 use Livewire\Component;
 
@@ -16,9 +16,9 @@ class PagesUploads extends Component
     public function mount(Request $request, $input)
     {
         $item = MantaPage::find($input);
-        if($request->input('locale')){
+        if ($request->input('locale')) {
             $item = MantaPage::where('locale', $request->input('locale'))->where('pid', $input)->first();
-            if($item == null){
+            if ($item == null) {
                 return redirect()->to(route('manta.pages.create', ['locale' => $request->input('locale'), 'pid' => $input]));
             }
         }
@@ -37,6 +37,5 @@ class PagesUploads extends Component
 
     public function store($input)
     {
-
     }
 }

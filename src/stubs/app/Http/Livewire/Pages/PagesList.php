@@ -2,10 +2,11 @@
 
 namespace App\Http\Livewire\Pages;
 
-use App\Models\MantaPage;
-use App\Traits\WithSorting;
+
 use Livewire\Component;
 use Livewire\WithPagination;
+use Manta\LaravelCms\Traits\WithSorting;
+use Manta\LaravelPages\Models\MantaPage;
 
 class PagesList extends Component
 {
@@ -30,16 +31,16 @@ class PagesList extends Component
     public function render()
     {
         $obj = MantaPage::where('locale', config('manta-cms.locale'))->orderBy($this->sortBy, $this->sortDirection);
-        if($this->show == 'trashed'){
+        if ($this->show == 'trashed') {
             $obj->onlyTrashed();
         }
-        if($this->search){
+        if ($this->search) {
             $keyword = $this->search;
-            $obj->where(function ($query) use($keyword) {
+            $obj->where(function ($query) use ($keyword) {
                 $query->where('title', 'like', '%' . $keyword . '%')
-                   ->orWhere('content', 'like', '%' . $keyword . '%');
-              });
-        // ->where('name', 'like', '%'.$this->search.'%')->orWhere('email', 'like', '%'.$this->search.'%');
+                    ->orWhere('content', 'like', '%' . $keyword . '%');
+            });
+            // ->where('name', 'like', '%'.$this->search.'%')->orWhere('email', 'like', '%'.$this->search.'%');
         }
         $items = $obj->paginate(20);
         return view('livewire.pages.pages-list', ['items' => $items])->layout('layouts.manta-bootstrap');

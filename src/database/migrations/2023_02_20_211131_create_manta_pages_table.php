@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('locale')->nullable();
             $table->integer('pid')->nullable();
             $table->string('title')->nullable();
+            $table->string('subtitle')->nullable();
             $table->string('slug')->nullable();
             $table->string('seo_title')->nullable();
             $table->text('seo_description')->nullable();
