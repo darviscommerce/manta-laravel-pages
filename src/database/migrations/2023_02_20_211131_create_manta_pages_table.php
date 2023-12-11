@@ -30,8 +30,9 @@ return new class extends Migration
             $table->text('tags')->nullable();
             $table->longText('excerpt')->nullable();
             $table->longText('content')->nullable();
-            $table->boolean('fixed')->nullable();   // Used when text is fixed in website
-            $table->boolean('fullpage')->nullable();   // Can be used as standalone page
+            $table->boolean('homepage')->default(0);
+            $table->boolean('fixed')->default(0);   // Used when text is fixed in website
+            $table->boolean('fullpage')->default(0);   // Can be used as standalone page
         });
     }
 
